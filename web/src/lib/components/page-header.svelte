@@ -1,25 +1,17 @@
 <script lang="ts">
-	import { SidebarTrigger } from "$lib/components/ui/sidebar";
-	import { cn } from "$lib/utils.js";
-	import type { HTMLAttributes } from "svelte/elements";
+	import { SidebarTrigger } from '$lib/components/ui/sidebar';
+	import { cn } from '$lib/utils.js';
+	import type { HTMLAttributes } from 'svelte/elements';
 
 	type Props = HTMLAttributes<HTMLElement> & {
 		title?: string;
 		description?: string;
 	};
 
-	let {
-		class: className,
-		title,
-		description,
-		...restProps
-	}: Props = $props();
+	let { class: className, title, description, ...restProps }: Props = $props();
 </script>
 
-<header
-	class={cn("flex items-center gap-3 border-b px-6 py-4", className)}
-	{...restProps}
->
+<header class={cn('flex items-center gap-3 border-b px-6 py-4', className)} {...restProps}>
 	<SidebarTrigger />
 	{#if title || description}
 		<div class="flex flex-col">
