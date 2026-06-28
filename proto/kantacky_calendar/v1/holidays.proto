@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package kantacky_calendar.v1;
+
+service HolidaysService {
+  rpc GetHolidaysInRange(GetHolidaysInRangeRequest) returns (GetHolidaysInRangeResponse);
+}
+
+enum EventType {
+  EVENT_TYPE_UNSPECIFIED = 0;
+  EVENT_TYPE_HOLIDAY = 1;
+}
+
+message Event {
+  string date = 1;
+  EventType type = 2;
+  string name = 3;
+}
+
+message GetHolidaysInRangeRequest {
+  string from = 1;
+  string to = 2;
+}
+
+message GetHolidaysInRangeResponse {
+  repeated Event events = 1;
+}
