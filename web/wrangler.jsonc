@@ -5,9 +5,6 @@
 	"site": {
 		"bucket": "./.cloudflare/public"
 	},
-	"build": {
-		"command": "bun run buf:generate && bun run build"
-	},
 	"compatibility_date": "2026-06-28",
 	"vars": {
 		"PUBLIC_API_BASE_URL": "https://api.calendar.kantacky.com"
