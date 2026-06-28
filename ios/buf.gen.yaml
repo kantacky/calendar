@@ -1,0 +1,14 @@
+version: v2
+clean: true
+inputs:
+  - directory: ../proto
+plugins:
+  - remote: buf.build/connectrpc/swift
+    out: Sources/CalendarAPI
+    opt:
+      - GenerateAsyncMethods=true
+      - GenerateCallbackMethods=true
+      - Visibility=Public
+  - remote: buf.build/apple/swift
+    out: Sources/CalendarAPI
+    opt: Visibility=Public
