@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createFetchHandler } from "./connect-handler";
-import { registerHolidaysService } from "./holidays/connect";
+import { registerServices } from "./services";
 
 const app = new Hono();
 
@@ -30,14 +30,12 @@ app.get("/health", (c) => {
   return c.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-const connectHandler = createFetchHandler((router) => {
-  registerHolidaysService(router);
-});
+const connectHandler = createFetchHandler(registerServices);
 
-app.all("/holiday.v1.:service/:method", async (c) => {
+app.all("*", async (c, next) => {
   const res = await connectHandler(c.req.raw);
-  if (!res) return c.notFound();
-  return res;
+  if (res) return res;
+  await next();
 });
 
 export default app;
