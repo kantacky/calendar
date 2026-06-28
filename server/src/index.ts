@@ -34,7 +34,7 @@ const connectHandler = createFetchHandler((router) => {
   registerHolidaysService(router);
 });
 
-app.all("/kantacky_calendar.v1.:service/:method", async (c) => {
+app.all("/holiday.v1.:service/:method", async (c) => {
   const res = await connectHandler(c.req.raw);
   if (!res) return c.notFound();
   return res;
