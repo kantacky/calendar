@@ -1,20 +1,11 @@
 syntax = "proto3";
 
-package kantacky_calendar.v1;
+package holiday.v1;
+
+import "common/v1/event.proto";
 
 service HolidaysService {
   rpc GetHolidaysInRange(GetHolidaysInRangeRequest) returns (GetHolidaysInRangeResponse);
-}
-
-enum EventType {
-  EVENT_TYPE_UNSPECIFIED = 0;
-  EVENT_TYPE_HOLIDAY = 1;
-}
-
-message Event {
-  string date = 1;
-  EventType type = 2;
-  string name = 3;
 }
 
 message GetHolidaysInRangeRequest {
@@ -23,5 +14,5 @@ message GetHolidaysInRangeRequest {
 }
 
 message GetHolidaysInRangeResponse {
-  repeated Event events = 1;
+  repeated common.v1.Event events = 1;
 }

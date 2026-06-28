@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package common.v1;
+
+import "common/v1/event_type.proto";
+
+message Event {
+  string date = 1;
+  EventType type = 2;
+  string name = 3;
+}
