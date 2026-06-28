@@ -16,9 +16,17 @@
 		"test": "npm run test:unit -- --run",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"deploy": "wrangler deploy"
+		"deploy": "wrangler deploy",
+		"buf:generate": "buf generate"
+	},
+	"dependencies": {
+		"@bufbuild/protobuf": "2.2.3",
+		"@connectrpc/connect": "2.0.2",
+		"@connectrpc/connect-web": "2.0.2"
 	},
 	"devDependencies": {
+		"@bufbuild/buf": "1.50.1",
+		"@bufbuild/protoc-gen-es": "2.2.3",
 		"@eslint/js": "^10.0.1",
 		"@fontsource-variable/inter": "^5.2.8",
 		"@internationalized/date": "^3.12.0",

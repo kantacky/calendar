@@ -3,15 +3,13 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { env } from '$env/dynamic/public';
+	import { holidaysClient } from '$lib/rpc/client';
+	import { ConnectError } from '@connectrpc/connect';
 
 	type Holiday = {
 		date: string;
-		type: string;
 		name: string;
 	};
-
-	const API_BASE_URL = env.PUBLIC_API_BASE_URL ?? 'http://localhost:8787';
 
 	const today = new Date().toISOString().slice(0, 10);
 	const yearStart = `${today.slice(0, 4)}-01-01`;
@@ -29,19 +27,16 @@
 		loading = true;
 		error = null;
 		try {
-			const url = new URL('/holidays', API_BASE_URL);
-			url.searchParams.set('from', from);
-			url.searchParams.set('to', to);
-			const res = await fetch(url);
-			if (!res.ok) {
-				const body = (await res.json().catch(() => null)) as { error?: string } | null;
-				throw new Error(body?.error ?? `HTTP ${res.status}`);
-			}
-			const body = (await res.json()) as { events: Holiday[] };
-			holidays = body.events;
+			const res = await holidaysClient.getHolidaysInRange({ from, to });
+			holidays = res.events.map((e) => ({ date: e.date, name: e.name }));
 			fetched = true;
 		} catch (err) {
-			error = err instanceof Error ? err.message : '祝日の取得に失敗しました';
+			error =
+				err instanceof ConnectError
+					? err.rawMessage
+					: err instanceof Error
+						? err.message
+						: '祝日の取得に失敗しました';
 			holidays = [];
 		} finally {
 			loading = false;
