@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "server",
+  "name": "kantacky-calendar-server",
   "main": "src/index.ts",
   "compatibility_date": "2026-06-28",
   // "compatibility_flags": [
