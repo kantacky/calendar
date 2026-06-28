@@ -1,0 +1,3 @@
+import CalendarApp
+
+CalendarApp.main()
