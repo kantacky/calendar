@@ -4,10 +4,8 @@ import {
   type ConnectRouter,
   type ServiceImpl,
 } from "@connectrpc/connect";
-import {
-  EventType,
-  HolidaysService,
-} from "../gen/kantacky_calendar/v1/holidays_pb.js";
+import { EventType } from "../gen/common/v1/event_type_pb";
+import { HolidaysService } from "../gen/holiday/v1/service_pb";
 import { createHolidaysJpRepository } from "./repository";
 import { createGetHolidaysInRangeUseCase } from "./usecase";
 
