@@ -4,12 +4,15 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
-    "cf-typegen": "wrangler types --env-interface CloudflareBindings"
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
-    "hono": "^4.12.27"
+    "hono": "4.12.27"
   },
   "devDependencies": {
-    "wrangler": "^4.4.0"
+    "prettier": "3.3.3",
+    "wrangler": "4.105.0"
   }
 }
