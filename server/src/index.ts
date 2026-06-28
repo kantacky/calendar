@@ -11,7 +11,11 @@ app.use(
     origin: (origin) => {
       if (!origin) return undefined;
       if (origin === "http://localhost:5173") return origin;
-      if (/^https:\/\/([a-z0-9-]+\.)?kantacky-calendar-web\.[^/]+\.workers\.dev$/.test(origin)) {
+      if (
+        /^https:\/\/([a-z0-9-]+\.)?kantacky-calendar-web\.[^/]+\.workers\.dev$/.test(
+          origin,
+        )
+      ) {
         return origin;
       }
       if (/^https:\/\/([a-z0-9-]+\.)?calendar\.kantacky\.com$/.test(origin)) {
