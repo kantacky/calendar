@@ -6,12 +6,17 @@
     "deploy": "wrangler deploy --minify",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "buf:generate": "buf generate"
   },
   "dependencies": {
+    "@bufbuild/protobuf": "2.2.3",
+    "@connectrpc/connect": "2.0.2",
     "hono": "4.12.27"
   },
   "devDependencies": {
+    "@bufbuild/buf": "1.50.1",
+    "@bufbuild/protoc-gen-es": "2.2.3",
     "prettier": "3.3.3",
     "wrangler": "4.105.0"
   }
