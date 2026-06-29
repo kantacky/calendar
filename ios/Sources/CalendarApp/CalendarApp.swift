@@ -5,7 +5,7 @@ public struct CalendarApp: App {
 
     public var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }
