@@ -18,7 +18,8 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/connectrpc/connect-swift.git", from: "1.0.0")
+        .package(url: "https://github.com/connectrpc/connect-swift.git", from: "1.0.0"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies.git", from: "1.9.2"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -31,7 +32,11 @@ let package = Package(
         ),
         .target(
             name: "CalendarApp",
-            dependencies: ["CalendarAPI"]
+            dependencies: [
+                "CalendarAPI",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "DependenciesMacros", package: "swift-dependencies"),
+            ]
         ),
         .testTarget(
             name: "CalendarAppTests",
