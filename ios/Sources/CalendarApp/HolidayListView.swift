@@ -4,17 +4,33 @@ struct HolidayListView: View {
     @State private var viewModel = HolidayListViewModel()
 
     var body: some View {
+        @Bindable var viewModel = viewModel
         NavigationSplitView {
             List {
+                Section("Range") {
+                    DatePicker(
+                        "From",
+                        selection: $viewModel.from,
+                        in: ...viewModel.to,
+                        displayedComponents: .date
+                    )
+                    DatePicker(
+                        "To",
+                        selection: $viewModel.to,
+                        in: viewModel.from...,
+                        displayedComponents: .date
+                    )
+                }
+
                 switch viewModel.holidays {
                 case .idle:
                     EmptyView()
-                    
+
                 case .loading:
                     ProgressView()
                         .frame(maxWidth: .infinity)
                         .listRowSeparator(.hidden)
-                    
+
                 case .success(let value), .reloading(let value):
                     ForEach(value) { holiday in
                         VStack(alignment: .leading, spacing: 4) {
@@ -25,7 +41,7 @@ struct HolidayListView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    
+
                 case .failure(let error), .retrying(let error):
                     ContentUnavailableView(
                         error.title,

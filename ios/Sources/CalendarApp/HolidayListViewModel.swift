@@ -5,12 +5,26 @@ import Observation
 @MainActor
 @Observable
 public final class HolidayListViewModel {
+    public var from: Date {
+        didSet { guard from != oldValue else { return }; reloadTask() }
+    }
+    public var to: Date {
+        didSet { guard to != oldValue else { return }; reloadTask() }
+    }
     public private(set) var holidays: DataState<[Holiday], DomainError> = .idle
 
     @ObservationIgnored
     @Dependency(\.calendarAPIClient) private var calendarAPIClient
 
-    public init() {}
+    @ObservationIgnored
+    private var currentTask: Task<Void, Never>?
+
+    public init() {
+        let now = Date()
+        let calendar = Calendar.current
+        self.from = calendar.date(byAdding: .month, value: -1, to: now) ?? now
+        self.to = calendar.date(byAdding: .month, value: 12, to: now) ?? now
+    }
 
     public func onAppear() async {
         holidays = .loading
@@ -28,12 +42,15 @@ public final class HolidayListViewModel {
         await load()
     }
 
+    private func reloadTask() {
+        currentTask?.cancel()
+        currentTask = Task { [weak self] in
+            await self?.refresh()
+        }
+    }
+
     private func load() async {
         do {
-            let now = Date()
-            let calendar = Calendar.current
-            let from = calendar.date(byAdding: .month, value: -1, to: now) ?? now
-            let to = calendar.date(byAdding: .month, value: 12, to: now) ?? now
             let value = try await calendarAPIClient.getHolidaysInRange(from, to)
             holidays = .success(value)
         } catch {
