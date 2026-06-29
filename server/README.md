@@ -1,21 +1,21 @@
-```txt
-npm install
-npm run dev
+# Kantacky Calendar Server
+
+https://api.calendar.kantacky.com
+
+## Setup
+
+```zsh
+bun install
 ```
 
-```txt
-npm run deploy
+```zsh
+bun run buf:generate
 ```
 
-[For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
+## Run Dev Server
 
-```txt
-npm run cf-typegen
+```zsh
+bun run dev
 ```
 
-Pass the `CloudflareBindings` as generics when instantiating `Hono`:
-
-```ts
-// src/index.ts
-const app = new Hono<{ Bindings: CloudflareBindings }>();
-```
+&copy; 2026 Kanta Oikawa
